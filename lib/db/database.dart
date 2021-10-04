@@ -29,11 +29,9 @@ class DatabaseService {
     Map<String, dynamic> userMap = {
       "id": userId,
       "password": pUserMap['password'],
-      "grade": pUserMap['grade'],
       "name": pUserMap['name'],
       "phoneNumber": pUserMap['phoneNumber'],
-      "validateByAdmin": false, // 최초 회원가입시 관리자 검증 false
-      "role": "student",
+      "validateByAdmin": pUserMap['validateByAdmin'], // 최초 회원가입시 관리자 검증 false
       "createdAt": DateTime.now()
     };
 

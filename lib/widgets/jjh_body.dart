@@ -9,7 +9,7 @@ Widget jjhBody(context) {
       SizedBox(height: 200),
       Center(
         child: Text(
-          '조지형 국어학원',
+          'xxxxxxxx',
           style: GoogleFonts.montserrat(
             fontSize: MediaQuery.of(context).size.width * 0.1,
             color: Colors.white,
@@ -23,7 +23,7 @@ Widget jjhBody(context) {
       SizedBox(height: 20),
       Center(
         child: Text(
-          '과제제출 앱',
+          '출퇴근 버튼',
           style: GoogleFonts.montserrat(
               fontSize: MediaQuery.of(context).size.width * 0.08,
               color: Colors.white,

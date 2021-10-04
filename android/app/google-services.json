@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "567398239661",
+    "project_id": "attendance-button",
+    "storage_bucket": "attendance-button.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:567398239661:android:ea884bef17801a80a2a524",
+        "android_client_info": {
+          "package_name": "com.kyungsnim.attendance_button"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "567398239661-ku3ssai3jbj1p256kt4a6p43ftcq4ebd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxLGcjITKv_UH40RXiafBHoVSJdo0STuA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "567398239661-ku3ssai3jbj1p256kt4a6p43ftcq4ebd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "567398239661-7fclbhs2fmtpabip9b47k6bhlqh126of.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kyungsnim.attendanceButton"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

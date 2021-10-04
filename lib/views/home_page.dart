@@ -1,4 +1,4 @@
-import 'package:attendance_button/models/CurrentUser.dart';
+import 'package:attendance_button/models/current_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,16 +19,16 @@ final DateTime timestamp = DateTime.now();
 CurrentUser currentUser = CurrentUser(
   id: "",
   password: "",
-  grade: "",
   validateByAdmin: false,
-  role: "",
   createdAt: DateTime.now(), name: '', phoneNumber: ''
 );
 var fontSize;
 
 class HomePage extends StatefulWidget {
-  final getPageIndex;
-  HomePage(this.getPageIndex);
+  final int getPageIndex;
+
+  const HomePage({Key? key, required this.getPageIndex}) : super(key: key);
+
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -49,10 +49,11 @@ class _HomePageState extends State<HomePage> {
     });
     pageController = PageController(
       // 다른 페이지에서 넘어올 때도 controller를 통해 어떤 페이지 보여줄 것인지 셋팅
-      initialPage: getPageIndex != null ? this.getPageIndex : 0
+      initialPage: getPageIndex
     );
   }
 
+  @override
   void dispose() {
     pageController.dispose();
     super.dispose();
@@ -100,11 +101,11 @@ class _HomePageState extends State<HomePage> {
             type: BottomNavigationBarType.fixed,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                  icon: Icon(Icons.calendar_today_sharp,), label: '과제목록', ),
+                  icon: Icon(Icons.lock_clock,), label: '출퇴근 입력', ),
               // BottomNavigationBarItem(
               //     icon: Icon(Icons.free_breakfast), label: '무료\n수업'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.person), label: '내정보'),
+                  icon: Icon(Icons.person_pin), label: '내정보'),
             ],
           ),
         ),

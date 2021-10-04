@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:attendance_button/DB/database.dart';
 import 'package:attendance_button/login/sign_up_with_user_id.dart';
-import 'package:attendance_button/models/CurrentUser.dart';
+import 'package:attendance_button/models/current_user.dart';
 import 'package:attendance_button/views/home_page.dart';
-import 'package:attendance_button/widgets/JJHBody.dart';
-import 'package:attendance_button/widgets/LoginButton.dart';
+import 'package:attendance_button/widgets/jjh_body.dart';
+import 'package:attendance_button/widgets/login_button.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -107,7 +107,7 @@ class SignInPageWithUserIdState extends State<SignInPageWithUserId> {
       });
 
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => HomePage(0)));
+          context, MaterialPageRoute(builder: (context) => const HomePage(getPageIndex: 0,)));
     }
   }
 
@@ -122,7 +122,7 @@ class SignInPageWithUserIdState extends State<SignInPageWithUserId> {
               FlatButton(
                 child: Container(
                   padding: const EdgeInsets.all(16),
-                  child: Text('확인',
+                  child: const Text('확인',
                       style: TextStyle(
                           color: Colors.grey, fontSize: 20)),
                 ),
@@ -147,10 +147,11 @@ class SignInPageWithUserIdState extends State<SignInPageWithUserId> {
       body: Stack(children: [
         ClipRRect(
           // 이미지 테두리반경 등 설정시 필요
-          child: Image.asset("assets/images/login_background.jpg",
-              width: MediaQuery.of(context).size.width * 1,
-              height: MediaQuery.of(context).size.height * 1,
-              fit: BoxFit.fill),
+          // child: Image.asset("assets/images/login_background.jpg",
+          //     width: MediaQuery.of(context).size.width * 1,
+          //     height: MediaQuery.of(context).size.height * 1,
+          //     fit: BoxFit.fill),
+          child: Container(color: Colors.blue.withOpacity(0.2),)
         ),
         Container(
           color: Colors.black.withOpacity(0.2),
@@ -165,7 +166,7 @@ class SignInPageWithUserIdState extends State<SignInPageWithUserId> {
               // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 jjhBody(context),
-                Spacer(),
+                const Spacer(),
                 Form(
                   key: _formKey,
                   child: Column(
@@ -177,7 +178,7 @@ class SignInPageWithUserIdState extends State<SignInPageWithUserId> {
                                 Border.all(color: Colors.blue.withOpacity(0.5)),
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.white,
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
                                   offset: Offset(1, 1),
                                   blurRadius: 5,
@@ -193,16 +194,16 @@ class SignInPageWithUserIdState extends State<SignInPageWithUserId> {
                             cursorColor: Colors.blue,
                             validator: (val) {
                               if (val!.isEmpty) {
-                                return '수험번호를 입력하세요';
+                                return '아이디를 입력하세요';
                               } else {
                                 return null;
                               }
                             },
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 icon: Icon(Icons.perm_contact_cal,
                                     color: Colors.blue),
-                                hintText: '수험번호',
+                                hintText: '아이디',
                                 hintStyle:
                                     TextStyle(fontSize: 18)),
                             onChanged: (val) {
@@ -211,7 +212,7 @@ class SignInPageWithUserIdState extends State<SignInPageWithUserId> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Container(
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
@@ -219,7 +220,7 @@ class SignInPageWithUserIdState extends State<SignInPageWithUserId> {
                                 Border.all(color: Colors.blue.withOpacity(0.5)),
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.white,
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
                                   offset: Offset(1, 1),
                                   blurRadius: 5,
@@ -234,16 +235,14 @@ class SignInPageWithUserIdState extends State<SignInPageWithUserId> {
                             obscureText: true,
                             cursorColor: Colors.blue,
                             validator: (val) {
-                              if (val!.length < 1) {
-                                return '1자 이상의 비밀번호를 사용하세요.';
-                              } else {
-                                return val.isEmpty ? '비밀번호를 입력하세요' : null;
+                              if (val!.isEmpty) {
+                                return '비밀번호를 입력하세요';
                               }
                             },
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 icon: Icon(Icons.vpn_key, color: Colors.blue),
-                                hintText: 'password',
+                                hintText: '비밀번호',
                                 hintStyle:
                                     TextStyle(fontSize: 18)),
                             onChanged: (val) {
@@ -272,7 +271,7 @@ class SignInPageWithUserIdState extends State<SignInPageWithUserId> {
                                   },
                                 ),
                               ),
-                              Text('수험번호 기억하기',
+                              const Text('아이디 기억하기',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 18))
                             ],
@@ -283,8 +282,8 @@ class SignInPageWithUserIdState extends State<SignInPageWithUserId> {
                       isLoading == true
                           ? Column(
                               children: [
-                                CircularProgressIndicator(
-                                  valueColor: new AlwaysStoppedAnimation<Color>(
+                                const CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
                                       Colors.blueAccent),
                                   strokeWidth: 10,
                                 ),
@@ -301,7 +300,7 @@ class SignInPageWithUserIdState extends State<SignInPageWithUserId> {
                                       isLoading = true;
                                     });
                                     FocusScope.of(context).requestFocus(
-                                        new FocusNode()); // 키보드 감추기
+                                        FocusNode()); // 키보드 감추기
                                     signIn();
                                   },
                                   child: userIdLoginButton(
@@ -311,18 +310,18 @@ class SignInPageWithUserIdState extends State<SignInPageWithUserId> {
                                       Colors.blue.withOpacity(0.7),
                                       Colors.blue),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 InkWell(
                                   onTap: () {
                                     FocusScope.of(context).requestFocus(
-                                        new FocusNode()); // 키보드 감추기
+                                        FocusNode()); // 키보드 감추기
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                SignUpPageWithUserId()));
+                                            const SignUpPageWithUserId()));
                                     // signIn();
                                   },
                                   child: userIdLoginButton(
@@ -338,10 +337,10 @@ class SignInPageWithUserIdState extends State<SignInPageWithUserId> {
                     ],
                   ),
                 ),
-                SizedBox(height: 20),
-                Text('© Copyright ${DateTime.now().year} by 조지형 국어학원',
-                    style: TextStyle(color: Colors.white54, fontSize: 12)),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
+                Text('© Copyright ${DateTime.now().year} by xxxxxxx',
+                    style: const TextStyle(color: Colors.white54, fontSize: 12)),
+                const SizedBox(height: 20),
               ],
             ),
           ),

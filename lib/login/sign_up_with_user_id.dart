@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:attendance_button/DB/database.dart';
-import 'package:attendance_button/widgets/LoginButton.dart';
+import 'package:attendance_button/widgets/login_button.dart';
 import 'package:flutter/material.dart';
 
 class SignUpPageWithUserId extends StatefulWidget {
@@ -18,14 +18,7 @@ class SignUpPageWithUserIdState extends State<SignUpPageWithUserId> {
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
-  final gradeList = [
-    "중학교 1학년",
-    "중학교 2학년",
-    "중학교 3학년",
-    "고등학교 1학년",
-    "고등학교 2학년",
-    "고등학교 3학년",
-  ];
+
   String? userId, name, phoneNumber, password; // 수험번호, 비밀번호;
   var grade; // 학년
   final _formKey = GlobalKey<FormState>();
@@ -36,7 +29,6 @@ class SignUpPageWithUserIdState extends State<SignUpPageWithUserId> {
   void initState() {
     super.initState();
     setState(() {
-      // grade = "중학교 1학년";
       isLoading = false;
     });
   }
@@ -56,30 +48,8 @@ class SignUpPageWithUserIdState extends State<SignUpPageWithUserId> {
       Map<dynamic, dynamic> userMap = {
         "id": userId,
         "password": password,
-        "grade": grade,
-        "validateByAdmin": false, // 최초 회원가입시 관리자 검증 false
+        "validateByAdmin": true, // 최초 회원가입시 관리자 검증 false
         "name": name,
-        "phoneNumber": phoneNumber,
-        "role": "student",
-        "createdAt": DateTime.now()
-      };
-      await ds.addUser(userMap, userId!);
-    } catch (e) {
-      print(e.toString());
-    }
-    Navigator.pop(context);
-  }
-
-  signUpWithUserIdPasswordInApple() async {
-    try {
-      Map<dynamic, dynamic> userMap = {
-        "id": userId,
-        "password": password,
-        "grade": grade,
-        "validateByAdmin": false, // 최초 회원가입시 관리자 검증 false
-        "name": name != null && name != "" ? name : "",
-        "phoneNumber":
-            phoneNumber != null && phoneNumber != "" ? phoneNumber : "",
         "role": "student",
         "createdAt": DateTime.now()
       };
@@ -98,10 +68,11 @@ class SignUpPageWithUserIdState extends State<SignUpPageWithUserId> {
         body: Stack(children: [
           ClipRRect(
             // 이미지 테두리반경 등 설정시 필요
-            child: Image.asset("assets/images/login_background.jpg",
-                width: MediaQuery.of(context).size.width * 1,
-                height: MediaQuery.of(context).size.height * 1,
-                fit: BoxFit.fill),
+            // child: Image.asset("assets/images/login_background.jpg",
+            //     width: MediaQuery.of(context).size.width * 1,
+            //     height: MediaQuery.of(context).size.height * 1,
+            //     fit: BoxFit.fill),
+            child: Container(color: Colors.green.withOpacity(0.2),)
           ),
           Container(
             color: Colors.black.withOpacity(0.6),
@@ -123,7 +94,7 @@ class SignUpPageWithUserIdState extends State<SignUpPageWithUserId> {
                               fontSize: MediaQuery.of(context).size.width * 0.1,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
-                              shadows: [
+                              shadows: const [
                                 Shadow(
                                     offset: Offset(1, 2),
                                     blurRadius: 3,
@@ -132,7 +103,7 @@ class SignUpPageWithUserIdState extends State<SignUpPageWithUserId> {
                         ),
                       ),
                       // SizedBox(height: 40),
-                      Spacer(),
+                      const Spacer(),
                       Form(
                         key: _formKey,
                         child: Column(
@@ -144,7 +115,7 @@ class SignUpPageWithUserIdState extends State<SignUpPageWithUserId> {
                                       color: Colors.green.withOpacity(0.5)),
                                   borderRadius: BorderRadius.circular(10),
                                   color: Colors.white,
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                         offset: Offset(1, 1),
                                         blurRadius: 5,
@@ -163,18 +134,16 @@ class SignUpPageWithUserIdState extends State<SignUpPageWithUserId> {
                                       setState(() {
                                         isLoading = false;
                                       });
-                                      return '수험번호를 입력하세요';
-                                    } else if (val.length != 6) {
-                                      return '수험번호는 6자리여야 합니다.';
+                                      return '아이디를 입력하세요';
                                     } else {
                                       return null;
                                     }
                                   },
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                       border: InputBorder.none,
                                       icon: Icon(Icons.perm_contact_cal,
                                           color: Colors.green),
-                                      hintText: '수험번호',
+                                      hintText: '아이디',
                                       hintStyle:
                                           TextStyle(fontSize: 18)),
                                   onChanged: (val) {
@@ -183,7 +152,7 @@ class SignUpPageWithUserIdState extends State<SignUpPageWithUserId> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Container(
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
@@ -191,7 +160,7 @@ class SignUpPageWithUserIdState extends State<SignUpPageWithUserId> {
                                       color: Colors.green.withOpacity(0.5)),
                                   borderRadius: BorderRadius.circular(10),
                                   color: Colors.white,
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                         offset: Offset(1, 1),
                                         blurRadius: 5,
@@ -204,8 +173,8 @@ class SignUpPageWithUserIdState extends State<SignUpPageWithUserId> {
                                     const EdgeInsets.symmetric(horizontal: 10),
                                 child: Row(
                                   children: [
-                                    Icon(Icons.person, color: Colors.green),
-                                    SizedBox(width: 15),
+                                    const Icon(Icons.person, color: Colors.green),
+                                    const SizedBox(width: 15),
                                     Expanded(
                                       flex: 1,
                                       child: TextFormField(
@@ -221,7 +190,7 @@ class SignUpPageWithUserIdState extends State<SignUpPageWithUserId> {
                                         decoration: InputDecoration(
                                             border: InputBorder.none,
                                             hintText: Platform.isIOS ? '이름(선택사항)' : '이름',
-                                            hintStyle: TextStyle(
+                                            hintStyle: const TextStyle(
                                                 fontSize: 18)),
                                         onChanged: (val) {
                                           name = val;
@@ -232,62 +201,7 @@ class SignUpPageWithUserIdState extends State<SignUpPageWithUserId> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 10),
-                            Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colors.green.withOpacity(0.5)),
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        offset: Offset(1, 1),
-                                        blurRadius: 5,
-                                        color: Colors.white24)
-                                  ]),
-                              width: MediaQuery.of(context).size.width * 0.8,
-                              height: MediaQuery.of(context).size.height * 0.07,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.perm_contact_cal_outlined,
-                                        color: Colors.green),
-                                    SizedBox(width: 15),
-                                    Expanded(
-                                      flex: 1,
-                                      child: DropdownButton(
-                                          hint: Text(
-                                            '학년 선택',
-                                            style: TextStyle(fontSize: 18),
-                                          ),
-                                          value: grade,
-                                          icon: Icon(Icons.arrow_downward),
-                                          underline: Container(
-                                            height: 1,
-                                            color: Colors.white,
-                                          ),
-                                          items: gradeList.map((value) {
-                                            return DropdownMenuItem(
-                                              value: value,
-                                              child: Text("$value",
-                                                  style: TextStyle(
-                                                      fontSize: 15)),
-                                            );
-                                          }).toList(),
-                                          onChanged: (value) {
-                                            setState(() {
-                                              grade = value;
-                                            });
-                                          }),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Container(
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
@@ -320,7 +234,7 @@ class SignUpPageWithUserIdState extends State<SignUpPageWithUserId> {
                                       return val.isEmpty ? '비밀번호를 입력하세요' : null;
                                     }
                                   },
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                       border: InputBorder.none,
                                       icon: Icon(Icons.vpn_key,
                                           color: Colors.green),
@@ -333,7 +247,7 @@ class SignUpPageWithUserIdState extends State<SignUpPageWithUserId> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Container(
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
@@ -341,7 +255,7 @@ class SignUpPageWithUserIdState extends State<SignUpPageWithUserId> {
                                       color: Colors.green.withOpacity(0.5)),
                                   borderRadius: BorderRadius.circular(10),
                                   color: Colors.white,
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                         offset: Offset(1, 1),
                                         blurRadius: 5,
@@ -369,7 +283,7 @@ class SignUpPageWithUserIdState extends State<SignUpPageWithUserId> {
                                       return val.isEmpty ? '비밀번호를 입력하세요' : null;
                                     }
                                   },
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                       border: InputBorder.none,
                                       icon: Icon(Icons.vpn_key_outlined,
                                           color: Colors.green),
@@ -390,8 +304,8 @@ class SignUpPageWithUserIdState extends State<SignUpPageWithUserId> {
                       isLoading == true
                           ? Column(
                               children: [
-                                CircularProgressIndicator(
-                                  valueColor: new AlwaysStoppedAnimation<Color>(
+                                const CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
                                       Colors.blueAccent),
                                   strokeWidth: 10,
                                 ),
@@ -408,19 +322,16 @@ class SignUpPageWithUserIdState extends State<SignUpPageWithUserId> {
                                         isLoading = true;
                                       });
                                       FocusScope.of(context).requestFocus(
-                                          new FocusNode()); // 키보드 감추기
+                                          FocusNode()); // 키보드 감추기
                                       ds.getUserInfoList(userId).then((val) {
                                         if (!val.exists) {
-                                          if (grade == null) {
-                                            checkIdPasswordPopup(
-                                                '학년 선택', '학년을 선택하세요.');
-                                          } else if (_formKey.currentState!
+                                          if (_formKey.currentState!
                                               .validate()) {
                                             signUpWithUserIdPassword();
                                           }
                                         } else {
                                           checkIdPasswordPopup('중복 수험번호',
-                                              '해당 수험번호는 이미 가입되어 있습니다.');
+                                              '해당 아이디는 이미 가입되어 있습니다.');
                                         }
                                       });
                                     },
@@ -430,7 +341,7 @@ class SignUpPageWithUserIdState extends State<SignUpPageWithUserId> {
                                         Colors.white,
                                         Colors.green.withOpacity(0.7),
                                         Colors.green)),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 InkWell(
                                     onTap: () {
                                       Navigator.pop(context);
@@ -443,10 +354,10 @@ class SignUpPageWithUserIdState extends State<SignUpPageWithUserId> {
                                         Colors.white)),
                               ],
                             ),
-                      SizedBox(height: 50),
-                      Text('© Copyright ${DateTime.now().year} by 조지형 국어학원',
-                          style: TextStyle(color: Colors.white54, fontSize: 12)),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 50),
+                      Text('© Copyright ${DateTime.now().year} by xxxxxxx',
+                          style: const TextStyle(color: Colors.white54, fontSize: 12)),
+                      const SizedBox(height: 20),
                     ])),
           ),
         ]));
@@ -460,10 +371,10 @@ class SignUpPageWithUserIdState extends State<SignUpPageWithUserId> {
             title: Text(title),
             content: Text(content),
             actions: [
-              FlatButton(
+              TextButton(
                 child: Container(
                   padding: const EdgeInsets.all(16),
-                  child: Text('확인',
+                  child: const Text('확인',
                       style: TextStyle(
                           color: Colors.grey, fontSize: 20)),
                 ),
